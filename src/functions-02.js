@@ -165,15 +165,13 @@ const store = {
    */
   removeItemQuantity(itemName, quantity) {
     if (this.isItemInStore(itemName)) {
+      if (this.getItemQuantity(itemName) < quantity) {
+        return -1;
+      }
       inventory.find((item) => item.name === itemName).quantity -= quantity;
     } else {
       return -1;
     }
-
-    if (this.getItemQuantity(itemName) < 0) {
-      return -1;
-    }
-
     return this.getItemQuantity(itemName);
   },
   /**
